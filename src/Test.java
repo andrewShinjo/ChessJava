@@ -2,11 +2,16 @@ import javafx.application.Application;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.event.ActionEvent;
+import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Rectangle;
@@ -21,10 +26,6 @@ public class Test extends Application {
     // JavaFX entry point
     @Override
     public void start(Stage primaryStage) throws Exception {
-//    	Stage message = new Stage();
-//    	message.setTitle("Chess board");
-//    	message.show();
-    	
     	//btnPlay is button "Play" to start a game
         String play = "Play";
         Button btnPlay = new Button();
@@ -34,14 +35,24 @@ public class Test extends Application {
         btnPlay.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-            	Rectangle r = new Rectangle();
-            	r.setX(20);
-            	r.setY(20);
-            	r.setWidth(50);
-            	r.setHeight(50);
+            	Board board = new Board();
+            	
+            	Tile r = new Tile();            	
+            	r.setOnMouseClicked(new EventHandler<MouseEvent>() 
+        		{
+        			@Override
+        			public void handle(MouseEvent event) {
+        				// TODO Auto-generated method stub
+        				if(r.isOccupied()) {
+        					System.out.println("is Occupied");
+        				} else {
+        					System.out.println("not occupied");
+        				}
+        			}
+        		});
             	
                 StackPane secondaryLayout = new StackPane();
-                secondaryLayout.getChildren().add(r);
+                secondaryLayout.getChildren().addAll(r, board);
                 
                 Scene secondScene = new Scene(secondaryLayout, 200, 200);
 
@@ -61,10 +72,15 @@ public class Test extends Application {
         Button btnOption = new Button();
         btnOption.setText(option);
         
- 
+        Image queen = new Image("king.jpg");
+        ImageView queenView = new ImageView(queen);
+        
         // A layout container for UI controls
         BorderPane root = new BorderPane();
         VBox vBox = new VBox();
+        
+        HBox hBox = new HBox();
+        hBox.getChildren().add(queenView);
         
         //Grid Pane
         GridPane grid = new GridPane();
@@ -73,7 +89,7 @@ public class Test extends Application {
         grid.add(btnOption, 1, 1);
         grid.setAlignment(Pos.CENTER);
         root.setCenter(grid);
-//        vBox.getChildren().addAll(btnPlay, btnOption);
+        root.setLeft(hBox);
         
         // Top level container for all view content
         Scene scene = new Scene(root, 300, 250);
