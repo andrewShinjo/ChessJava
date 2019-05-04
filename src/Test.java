@@ -12,8 +12,10 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
  
@@ -35,8 +37,12 @@ public class Test extends Application {
         btnPlay.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-            	Board board = new Board();
+            	System.out.println("print here");
             	
+            	Board chessBoard = new Board();
+            	
+            	System.out.println("print here");
+
             	Tile r = new Tile();            	
             	r.setOnMouseClicked(new EventHandler<MouseEvent>() 
         		{
@@ -51,8 +57,16 @@ public class Test extends Application {
         			}
         		});
             	
-                StackPane secondaryLayout = new StackPane();
-                secondaryLayout.getChildren().addAll(r, board);
+            	Pane secondaryLayout = new Pane();
+//                secondaryLayout.getChildren().addAll(r);
+            	
+            	for(int col = 0; col < chessBoard.getCol(); col++) {
+        			for(int row = 0; row < chessBoard.getRow(); row++) {
+        				 secondaryLayout.getChildren().add(chessBoard.getBoard(col,row));
+        			}		
+        		}
+            	
+               
                 
                 Scene secondScene = new Scene(secondaryLayout, 200, 200);
 
@@ -72,15 +86,18 @@ public class Test extends Application {
         Button btnOption = new Button();
         btnOption.setText(option);
         
-        Image queen = new Image("king.jpg");
-        ImageView queenView = new ImageView(queen);
+        Image king = new Image("king.jpg");
+        ImageView kingView = new ImageView(king);
+        kingView.setFitHeight(100);
+        kingView.setFitWidth(100);
+        
         
         // A layout container for UI controls
         BorderPane root = new BorderPane();
         VBox vBox = new VBox();
         
         HBox hBox = new HBox();
-        hBox.getChildren().add(queenView);
+        hBox.getChildren().add(kingView);
         
         //Grid Pane
         GridPane grid = new GridPane();

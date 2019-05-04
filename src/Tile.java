@@ -10,10 +10,10 @@ public class Tile extends Rectangle {
 	
 	public Tile() {
 		this.isOccupied = false;
-		setX(100);
-		setY(100);
-		setWidth(50);
-    	setHeight(50);
+//		setX(100);
+//		setY(100);
+		setWidth(20);
+    	setHeight(20);
     	setFill(Color.WHITE);
 	}
 	
