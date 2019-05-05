@@ -10,8 +10,8 @@ public class Tile extends Rectangle {
 	
 	public Tile() {
 		this.isOccupied = false;
-//		setX(100);
-//		setY(100);
+		setX(0);
+		setY(0);
 		setWidth(20);
     	setHeight(20);
     	setFill(Color.WHITE);
@@ -20,4 +20,5 @@ public class Tile extends Rectangle {
 	public boolean isOccupied() {
 		return this.isOccupied;
 	}
+	
 }
