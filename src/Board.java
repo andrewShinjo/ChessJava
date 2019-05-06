@@ -32,10 +32,10 @@ public class Board {
 	}
 	
 	public int getCol() {
-		return this.COL;
+		return COL;
 	}
 	
 	public int getRow() {
-		return this.ROW;
+		return ROW;
 	}
 }

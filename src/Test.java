@@ -86,7 +86,7 @@ public class Test extends Application {
         Button btnOption = new Button();
         btnOption.setText(option);
         
-        Image king = new Image("king.jpg");
+        Image king = new Image("blackBishop.png");
         ImageView kingView = new ImageView(king);
         kingView.setFitHeight(100);
         kingView.setFitWidth(100);
@@ -94,7 +94,6 @@ public class Test extends Application {
         
         // A layout container for UI controls
         BorderPane root = new BorderPane();
-        VBox vBox = new VBox();
         
         HBox hBox = new HBox();
         hBox.getChildren().add(kingView);
