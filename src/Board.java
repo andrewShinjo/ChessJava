@@ -13,15 +13,8 @@ public class Board {
 		for(int col = 0; col < COL; col++) {
 			for(int row = 0; row < ROW; row++) {
 				
-				chessBoard[col][row] = new Tile();
-				
-				chessBoard[col][row].setX(row * SIDE);
-				chessBoard[col][row].setY(col * SIDE);
-				chessBoard[col][row].setWidth(SIDE);
-				chessBoard[col][row].setHeight(SIDE);
-				
-				Color tileColor = ((col + row) % 2 == 0) ? Color.BLACK : Color.WHITE;			
-				chessBoard[col][row].setFill(tileColor);
+				Color tileColor = ((col + row) % 2 == 0) ? Color.BLACK : Color.WHITE;	
+				chessBoard[col][row] = new Tile(row*SIDE, col*SIDE, SIDE, SIDE, tileColor);
 			}		
 		}
 	}

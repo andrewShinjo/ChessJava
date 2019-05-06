@@ -37,29 +37,16 @@ public class Test extends Application {
         btnPlay.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
+            	//create new Board object
             	Board chessBoard = new Board();
             	
-            	Tile r = new Tile();            	
-            	r.setOnMouseClicked(new EventHandler<MouseEvent>() 
-        		{
-        			@Override
-        			public void handle(MouseEvent event) {
-        				// TODO Auto-generated method stub
-        				if(r.isOccupied()) {
-        					System.out.println("is Occupied");
-        				} else {
-        					System.out.println("not occupied");
-        				}
-        			}
-        		});
-            	
+            	//Pane layout
             	Pane secondaryLayout = new Pane();
-                System.out.println("print");
 
+            	//Position for all the pieces
                 Pawn whitePawn = new Pawn(Team.WHITE, 0, 0);
-//                System.out.println("Hello");
                 
-            	
+            	//creating chessBoard
             	for(int col = 0; col < chessBoard.getCol(); col++) {
         			for(int row = 0; row < chessBoard.getRow(); row++) {
         				 secondaryLayout.getChildren().add(chessBoard.getBoard(col,row));
@@ -68,6 +55,7 @@ public class Test extends Application {
             	
             	secondaryLayout.getChildren().add(whitePawn.getImageView());
                 
+            	//Second scene shown
                 Scene secondScene = new Scene(secondaryLayout, 200, 200);
 
                 Stage secondStage = new Stage();

@@ -8,13 +8,25 @@ import javafx.scene.paint.Color;
 public class Tile extends Rectangle {
 	private boolean isOccupied;
 	
-	public Tile() {
+	private Piece piece;
+	
+	public Tile(int x, int y, int w, int h, Color c) {
 		this.isOccupied = false;
-		setX(0);
-		setY(0);
-		setWidth(20);
-    	setHeight(20);
-    	setFill(Color.WHITE);
+		setX(x);
+		setY(y);
+		setWidth(w);
+    	setHeight(h);
+    	setFill(c);
+	}
+	
+	public Tile(int x, int y, int w, int h, Color c, Piece piece) {
+		this.isOccupied = true;
+		this.piece = piece;
+		setX(x);
+		setY(y);
+		setWidth(w);
+    	setHeight(h);
+    	setFill(c);
 	}
 	
 	public boolean isOccupied() {
