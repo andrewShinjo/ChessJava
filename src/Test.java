@@ -37,12 +37,8 @@ public class Test extends Application {
         btnPlay.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-            	System.out.println("print here");
-            	
             	Board chessBoard = new Board();
             	
-            	System.out.println("print here");
-
             	Tile r = new Tile();            	
             	r.setOnMouseClicked(new EventHandler<MouseEvent>() 
         		{
@@ -58,7 +54,11 @@ public class Test extends Application {
         		});
             	
             	Pane secondaryLayout = new Pane();
-//                secondaryLayout.getChildren().addAll(r);
+                System.out.println("print");
+
+                Pawn whitePawn = new Pawn(Team.WHITE, 0, 0);
+//                System.out.println("Hello");
+                
             	
             	for(int col = 0; col < chessBoard.getCol(); col++) {
         			for(int row = 0; row < chessBoard.getRow(); row++) {
@@ -66,7 +66,7 @@ public class Test extends Application {
         			}		
         		}
             	
-               
+            	secondaryLayout.getChildren().add(whitePawn.getImageView());
                 
                 Scene secondScene = new Scene(secondaryLayout, 200, 200);
 
@@ -82,21 +82,13 @@ public class Test extends Application {
             }
         });
         
+        //Button Option
         String option = "Option";
         Button btnOption = new Button();
         btnOption.setText(option);
         
-        Image king = new Image("blackBishop.png");
-        ImageView kingView = new ImageView(king);
-        kingView.setFitHeight(100);
-        kingView.setFitWidth(100);
-        
-        
         // A layout container for UI controls
         BorderPane root = new BorderPane();
-        
-        HBox hBox = new HBox();
-        hBox.getChildren().add(kingView);
         
         //Grid Pane
         GridPane grid = new GridPane();
@@ -105,7 +97,6 @@ public class Test extends Application {
         grid.add(btnOption, 1, 1);
         grid.setAlignment(Pos.CENTER);
         root.setCenter(grid);
-        root.setLeft(hBox);
         
         // Top level container for all view content
         Scene scene = new Scene(root, 300, 250);

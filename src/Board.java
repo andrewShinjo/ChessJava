@@ -20,9 +20,8 @@ public class Board {
 				chessBoard[col][row].setWidth(SIDE);
 				chessBoard[col][row].setHeight(SIDE);
 				
-				Color green = Color.rgb(0,  128,  43);
-				Color color = ((col + row) % 2 == 0) ? Color.GRAY : green;			
-				chessBoard[col][row].setFill(color);
+				Color tileColor = ((col + row) % 2 == 0) ? Color.BLACK : Color.WHITE;			
+				chessBoard[col][row].setFill(tileColor);
 			}		
 		}
 	}
