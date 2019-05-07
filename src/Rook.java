@@ -8,7 +8,7 @@ public class Rook extends Piece {
 	private ImageView imageViewer;
 	
 	public Rook(Team color, int x, int y) {
-		String image = color == Team.WHITE ? "whiteRook.png" : "blackRook.pgn";
+		String image = color == Team.WHITE ? "whiteRook.png" : "blackRook.png";
 		
 		imageViewer = new ImageView(image);	
 		

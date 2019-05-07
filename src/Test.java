@@ -44,17 +44,25 @@ public class Test extends Application {
             	Pane secondaryLayout = new Pane();
 
             	//Position for all the pieces
-                Pawn whitePawn = new Pawn(Team.WHITE, 0, 0);
+                
+                Game game = new Game();
+                
+            	
                 
             	//creating chessBoard
             	for(int col = 0; col < chessBoard.getCol(); col++) {
         			for(int row = 0; row < chessBoard.getRow(); row++) {
-        				 secondaryLayout.getChildren().add(chessBoard.getBoard(col,row));
+        				 secondaryLayout.getChildren().add(game.getBoard().getTile(col,row));
         			}		
         		}
             	
-            	secondaryLayout.getChildren().add(whitePawn.getImageView());
-                
+            	for( int row = 0; row < 8; row++ ) {
+            		secondaryLayout.getChildren().add(game.getBoard().getTile(0,  row).getPiece().getImageView());
+            		secondaryLayout.getChildren().add(game.getBoard().getTile(1, row).getPiece().getImageView());
+            		secondaryLayout.getChildren().add(game.getBoard().getTile(6,  row).getPiece().getImageView());
+            		secondaryLayout.getChildren().add(game.getBoard().getTile(7, row).getPiece().getImageView());
+        		}
+            	
             	//Second scene shown
                 Scene secondScene = new Scene(secondaryLayout, 200, 200);
 

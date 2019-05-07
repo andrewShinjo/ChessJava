@@ -28,9 +28,19 @@ public class Tile extends Rectangle {
     	setHeight(h);
     	setFill(c);
 	}
-	
+	/*** Accessor functions ***/
 	public boolean isOccupied() {
 		return this.isOccupied;
+	}
+	
+	public Piece getPiece() {
+		return this.piece;
+	}
+	
+	/*** Additional functions ***/
+	public void insertPiece(Piece piece) {
+		this.piece = piece;
+		this.isOccupied = true;
 	}
 	
 }

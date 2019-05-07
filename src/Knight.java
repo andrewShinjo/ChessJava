@@ -18,6 +18,11 @@ public class Knight extends Piece {
         imageViewer.setY(y);
 	}
 	
+	/*** Accessor functions ***/
+	public ImageView getImageView() {
+		return this.imageViewer;
+	}
+	
 	@Override
 	void move() {
 		// TODO Auto-generated method stub

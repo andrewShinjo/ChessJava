@@ -44,13 +44,18 @@ public class Game {
 				new Rook(Team.BLACK, 700, 700)	
 		};
 		
-		Board board = new Board();
+		board = new Board();
 		
-		for(int col = 0; col < board.getCol(); col++) {
-			for(int row = 0; row < board.getRow(); row++) {
-				
-			}
-		}
-		
+		for( int row = 0; row < board.getRow(); row++ ) {
+			board.getTile(0,  row).insertPiece(whitePieces[row]);
+			board.getTile(1, row).insertPiece(whitePieces[row + 8]);
+			board.getTile(6,  row).insertPiece(blackPieces[row]);
+			board.getTile(7, row).insertPiece(blackPieces[row + 8]);
+		}	
+	}
+	
+	/*** Accessor functions ***/
+	public Board getBoard() {
+		return this.board;
 	}
 }

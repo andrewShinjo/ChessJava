@@ -13,13 +13,13 @@ public class Board {
 		for(int col = 0; col < COL; col++) {
 			for(int row = 0; row < ROW; row++) {
 				
-				Color tileColor = ((col + row) % 2 == 0) ? Color.BLACK : Color.WHITE;	
+				Color tileColor = ((col + row) % 2 == 0) ? Color.WHITE : Color.GRAY;	
 				chessBoard[col][row] = new Tile(row*SIDE, col*SIDE, SIDE, SIDE, tileColor);
 			}		
 		}
 	}
 	
-	public Tile getBoard(int col, int row) {
+	public Tile getTile(int col, int row) {
 		return chessBoard[col][row];
 	}
 	

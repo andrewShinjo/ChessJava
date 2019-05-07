@@ -8,7 +8,7 @@ public class King extends Piece {
 	
 	/*** Constructor ***/
 	public King(Team color, int x, int y) {
-		String image = color == Team.WHITE ? "whiteQueen.png" : "blackQueen.png";
+		String image = color == Team.WHITE ? "whiteKing.png" : "blackKing.png";
 		
 		imageViewer = new ImageView(image);	
 		
@@ -16,6 +16,11 @@ public class King extends Piece {
 		imageViewer.setFitWidth(100);
         imageViewer.setX(x);
         imageViewer.setY(y);
+	}
+	
+	/*** Accessor functions ***/
+	public ImageView getImageView() {
+		return this.imageViewer;
 	}
 	
 	@Override
