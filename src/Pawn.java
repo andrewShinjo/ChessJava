@@ -21,17 +21,22 @@ public class Pawn extends Piece {
 	
 	
 	@Override
-	void move() {
+	public void move() {
 		// TODO Auto-generated method stub
 		
 	}
 	
+	/*** Accessor functions ***/
 	public Image getImage() {
 		return this.image;
 	}
 	
 	public ImageView getImageView() {
 		return this.imageViewer;
+	}
+	
+	public String getName() {
+		return "P";
 	}
 
 }

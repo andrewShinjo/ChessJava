@@ -22,8 +22,12 @@ public class Bishop extends Piece {
 		return this.imageViewer;
 	}
 	
+	public String getName() {
+		return "B";
+	}
+	
 	@Override
-	void move() {
+	public void move() {
 		// TODO Auto-generated method stub
 		
 	}

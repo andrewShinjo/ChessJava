@@ -13,14 +13,6 @@ public class Player {
 		
 		if(team == Team.WHITE) {
 			pieces = new Piece[] {
-				new Pawn(Team.WHITE, 0, 600),
-				new Pawn(Team.WHITE, 100, 600),
-				new Pawn(Team.WHITE, 200, 600),
-				new Pawn(Team.WHITE, 300, 600),
-				new Pawn(Team.WHITE, 400, 600),
-				new Pawn(Team.WHITE, 500, 600),
-				new Pawn(Team.WHITE, 600, 600),
-				new Pawn(Team.WHITE, 700, 600),
 				new Rook(Team.WHITE, 0, 700),
 				new Knight(Team.WHITE, 100, 700),
 				new Bishop(Team.WHITE, 200, 700),
@@ -28,7 +20,15 @@ public class Player {
 				new King(Team.WHITE, 400, 700),
 				new Bishop(Team.WHITE, 500, 700),
 				new Knight(Team.WHITE, 600, 700),
-				new Rook(Team.WHITE, 700, 700)	
+				new Rook(Team.WHITE, 700, 700),
+				new Pawn(Team.WHITE, 0, 600),
+				new Pawn(Team.WHITE, 100, 600),
+				new Pawn(Team.WHITE, 200, 600),
+				new Pawn(Team.WHITE, 300, 600),
+				new Pawn(Team.WHITE, 400, 600),
+				new Pawn(Team.WHITE, 500, 600),
+				new Pawn(Team.WHITE, 600, 600),
+				new Pawn(Team.WHITE, 700, 600)
 			};
 		} else {
 			pieces = new Piece[] {

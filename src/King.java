@@ -23,8 +23,12 @@ public class King extends Piece {
 		return this.imageViewer;
 	}
 	
+	public String getName() {
+		return "K";
+	}
+	
 	@Override
-	void move() {
+	public void move() {
 		// TODO Auto-generated method stub
 		
 	}

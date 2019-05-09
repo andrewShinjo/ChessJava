@@ -19,9 +19,14 @@ public class Rook extends Piece {
 	}
 	
 	@Override
-	void move() {
+	public void move() {
 		// TODO Auto-generated method stub
 		
+	}
+	
+	/*** Accessor functions ***/
+	public String getName() {
+		return "R";
 	}
 	
 	public Image getImage() {

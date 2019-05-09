@@ -43,4 +43,8 @@ public class Tile extends Rectangle {
 		this.isOccupied = true;
 	}
 	
+	public void removePiece() {
+		this.piece = null;
+	}
+	
 }

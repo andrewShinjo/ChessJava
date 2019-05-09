@@ -24,9 +24,12 @@ public class Queen extends Piece{
 		return this.imageViewer;
 	}
 	
+	public String getName() {
+		return "Q";
+	}
 	
 	@Override
-	void move() {
+	public void move() {
 		// TODO Auto-generated method stub
 		
 	}

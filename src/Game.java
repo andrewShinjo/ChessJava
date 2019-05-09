@@ -14,6 +14,10 @@ public class Game {
 	private double y0mouse;
 	private double x0piece;
 	private double y0piece;
+	private double dx;
+	private double dy;
+	private double new_dx;
+	private double new_dy;
 
 	/*** Constructor ***/
 	public Game() {
@@ -34,6 +38,8 @@ public class Game {
 			board.getTile(7, row).insertPiece(blackPlayer.getPieces()[row + 8]);
 		}	
 		
+		printBoard();
+		
 		for(int i = 0; i < 32; i++) {
 			/*** Piece functionality on MOUSE_PRESSED ***/
 			ImageView imageView = allPieces[i].getImageView();
@@ -49,10 +55,10 @@ public class Game {
 			imageView.addEventHandler(MouseEvent.MOUSE_DRAGGED, new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent t) {
-				double dx = t.getSceneX() - x0mouse;
-				double dy = t.getSceneY() - y0mouse;
-				double new_dx = x0piece + dx;
-				double new_dy = y0piece + dy;
+				dx = t.getSceneX() - x0mouse;
+				dy = t.getSceneY() - y0mouse;
+				new_dx = x0piece + dx;
+				new_dy = y0piece + dy;
 				imageView.setX(new_dx);
 				imageView.setY(new_dy);
 				}
@@ -61,7 +67,27 @@ public class Game {
 			imageView.addEventHandler(MouseEvent.MOUSE_RELEASED, new EventHandler<MouseEvent>() {
 				@Override
 				public void handle(MouseEvent t) {
-				
+					
+					int old_row = (int) Math.rint(x0piece / 100);
+					int old_col = (int) Math.rint(y0piece / 100);
+					int new_row = (int) Math.rint(new_dx / 100);
+					int new_col = (int) Math.rint(new_dy / 100);
+					
+					// If piece is placed on the board, allow piece to move
+					if( new_col >= 0 && new_col < 8 && new_row >= 0 && new_row < 8) {
+						if(board.getTile(new_col, new_row).getPiece() == null) {
+							board.getTile(new_col,  new_row).insertPiece(board.getTile(old_col,  old_row).getPiece());
+							board.getTile(old_col, old_row).removePiece();
+							imageView.setY(new_col * 100);
+							imageView.setX(new_row * 100);
+						}
+					} else {
+						imageView.setX(x0piece);
+						imageView.setY(y0piece);
+					}
+					printBoard();
+					
+					
 				}
 			});
 		}
@@ -75,6 +101,19 @@ public class Game {
 
 	/*** Additional functions ***/
 
+	public void printBoard() {
+		for(int i = 0; i < 8; i++) {
+			for(int j = 0; j < 8; j++) {
+				Piece piece = board.getTile(i,  j).getPiece();
+				if(piece != null) {
+					System.out.print("[" + board.getTile(i, j).getPiece().getName()+"]");
+				} else {
+					System.out.print("[ ]");
+				}
+			}
+			System.out.println();
+		}
+	}
 
 }
 
