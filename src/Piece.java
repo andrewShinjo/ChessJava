@@ -1,20 +1,22 @@
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 public abstract class Piece {
 
-	private ImageView imageView;
-	public Team team;
+	protected Image image;
+	protected ImageView imageViewer;
+	protected Team team;
 	
 	public abstract void move();
 	public abstract String getName();
 	
 	/*** Accessor functions ***/
 	public ImageView getImageView() {
-		return this.imageView;
+		return imageViewer;
 	}
 	
 	public Team getTeam() {
-		return this.team;
+		return team;
 	}
 	
 }

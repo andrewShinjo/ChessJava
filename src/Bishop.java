@@ -2,12 +2,10 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 public class Bishop extends Piece {
-	private Image image;
-	private ImageView imageViewer;
-	
 	/*** Constructor ***/
-	public Bishop(Team color, int x, int y) {
-		String image = color == Team.WHITE ? "whiteBishop.png" : "blackBishop.png";
+	public Bishop(Team team, int x, int y) {
+		this.team = team;
+		String image = team == Team.WHITE ? "whiteBishop.png" : "blackBishop.png";
 		
 		imageViewer = new ImageView(image);	
 		
@@ -18,9 +16,6 @@ public class Bishop extends Piece {
 	}
 	
 	/*** Accessor functions ***/
-	public ImageView getImageView() {
-		return this.imageViewer;
-	}
 	
 	public String getName() {
 		return "B";

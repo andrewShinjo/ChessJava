@@ -4,12 +4,11 @@ import javafx.scene.image.ImageView;
 public class Pawn extends Piece {
 
 	/*** Private member variables ***/
-	private Image image;
-	private ImageView imageViewer;
 	
 	/*** Constructor ***/
-	public Pawn(Team color, int x, int y) {
-		String image = color == Team.WHITE ? "whitePawn.png" : "blackPawn.png";
+	public Pawn(Team team, int x, int y) {
+		this.team = team;
+		String image = team == Team.WHITE ? "whitePawn.png" : "blackPawn.png";
 		
 		imageViewer = new ImageView(image);	
 		
@@ -27,13 +26,6 @@ public class Pawn extends Piece {
 	}
 	
 	/*** Accessor functions ***/
-	public Image getImage() {
-		return this.image;
-	}
-	
-	public ImageView getImageView() {
-		return this.imageViewer;
-	}
 	
 	public String getName() {
 		return "P";

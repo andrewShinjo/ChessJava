@@ -2,13 +2,10 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 public class King extends Piece {
-
-	private Image image;
-	private ImageView imageViewer;
-	
 	/*** Constructor ***/
-	public King(Team color, int x, int y) {
-		String image = color == Team.WHITE ? "whiteKing.png" : "blackKing.png";
+	public King(Team team, int x, int y) {
+		this.team = team;
+		String image = team == Team.WHITE ? "whiteKing.png" : "blackKing.png";
 		
 		imageViewer = new ImageView(image);	
 		
@@ -19,10 +16,6 @@ public class King extends Piece {
 	}
 	
 	/*** Accessor functions ***/
-	public ImageView getImageView() {
-		return this.imageViewer;
-	}
-	
 	public String getName() {
 		return "K";
 	}

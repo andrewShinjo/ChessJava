@@ -11,7 +11,7 @@ public class Player {
 		
 		this.team = team;
 		
-		if(team == Team.WHITE) {
+		if(team.equals(Team.WHITE)) {
 			pieces = new Piece[] {
 				new Rook(Team.WHITE, 0, 560),
 				new Knight(Team.WHITE, 80, 560),

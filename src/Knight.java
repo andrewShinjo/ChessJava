@@ -3,12 +3,10 @@ import javafx.scene.image.ImageView;
 
 public class Knight extends Piece {
 
-	private Image image;
-	private ImageView imageViewer;
-	
 	/*** Constructor ***/
-	public Knight(Team color, int x, int y) {
-		String image = color == Team.WHITE ? "whiteKnight.png" : "blackKnight.png";
+	public Knight(Team team, int x, int y) {
+		this.team = team;
+		String image = team == Team.WHITE ? "whiteKnight.png" : "blackKnight.png";
 		
 		imageViewer = new ImageView(image);	
 		
@@ -19,9 +17,6 @@ public class Knight extends Piece {
 	}
 	
 	/*** Accessor functions ***/
-	public ImageView getImageView() {
-		return this.imageViewer;
-	}
 	
 	public String getName() {
 		return "N";

@@ -4,11 +4,11 @@ import javafx.scene.image.ImageView;
 public class Rook extends Piece {
 	
 	/*** Private variables */
-	private Image image;
-	private ImageView imageViewer;
+
 	
-	public Rook(Team color, int x, int y) {
-		String image = color == Team.WHITE ? "whiteRook.png" : "blackRook.png";
+	public Rook(Team team, int x, int y) {
+		this.team = team;
+		String image = team == Team.WHITE ? "whiteRook.png" : "blackRook.png";
 		
 		imageViewer = new ImageView(image);	
 		
@@ -27,13 +27,5 @@ public class Rook extends Piece {
 	/*** Accessor functions ***/
 	public String getName() {
 		return "R";
-	}
-	
-	public Image getImage() {
-		return this.image;
-	}
-	
-	public ImageView getImageView() {
-		return this.imageViewer;
 	}
 }

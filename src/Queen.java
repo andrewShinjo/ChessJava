@@ -4,12 +4,11 @@ import javafx.scene.image.ImageView;
 public class Queen extends Piece{
 
 	/*** Private member variables ***/
-	private Image image;
-	private ImageView imageViewer;
 	
 	/*** Constructor ***/
-	public Queen(Team color, int x, int y) {
-		String image = color == Team.WHITE ? "whiteQueen.png" : "blackQueen.png";
+	public Queen(Team team, int x, int y) {
+		this.team = team;
+		String image = team == Team.WHITE ? "whiteQueen.png" : "blackQueen.png";
 		
 		imageViewer = new ImageView(image);	
 		
@@ -20,9 +19,6 @@ public class Queen extends Piece{
 	}
 	
 	/*** Accessor functions ***/
-	public ImageView getImageView() {
-		return this.imageViewer;
-	}
 	
 	public String getName() {
 		return "Q";
