@@ -18,7 +18,9 @@ public class Bishop extends Piece {
 	/*** Accessor functions ***/
 	
 	public String getName() {
-		return "B";
+		if(team == Team.WHITE)
+			return "WB";
+		return "BB";
 	}
 	
 	@Override

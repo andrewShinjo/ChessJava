@@ -21,7 +21,9 @@ public class Queen extends Piece{
 	/*** Accessor functions ***/
 	
 	public String getName() {
-		return "Q";
+		if(team == Team.WHITE)
+			return "WQ";
+		return "BQ";
 	}
 	
 	@Override

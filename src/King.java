@@ -17,7 +17,10 @@ public class King extends Piece {
 	
 	/*** Accessor functions ***/
 	public String getName() {
-		return "K";
+		if(team == Team.WHITE)
+			return "WK";
+		
+		return "BK";
 	}
 	
 	@Override

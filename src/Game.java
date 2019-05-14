@@ -34,10 +34,10 @@ public class Game {
 		}
 		
 		for( int row = 0; row < board.getRow(); row++ ) {
-			board.getTile(0,  row).insertPiece(blackPlayer.getPieces()[row]);
-			board.getTile(1, row).insertPiece(blackPlayer.getPieces()[row + 8]);
-			board.getTile(6,  row).insertPiece(whitePlayer.getPieces()[row]);
-			board.getTile(7, row).insertPiece(whitePlayer.getPieces()[row + 8]);
+			board.getTile(0,  row).insertPiece(blackPlayer.getPieces()[row+8]);
+			board.getTile(1, row).insertPiece(blackPlayer.getPieces()[row]);
+			board.getTile(6,  row).insertPiece(whitePlayer.getPieces()[row + 8]);
+			board.getTile(7, row).insertPiece(whitePlayer.getPieces()[row]);
 		}	
 		
 //		for( int row = 0; row < board.getRow(); row++ ) {
@@ -98,17 +98,21 @@ public class Game {
 							imageView.setY(old_col * 80);
 							imageView.setX(old_row * 80);
 						} else if(board.getTile(new_col, new_row).isOccupied() == true &&
-								  board.getTile(new_col,  new_row).getPiece().getTeam() !=
-								  board.getTile(old_col, old_row).getPiece().getTeam()) {
+						  board.getTile(new_col,  new_row).getPiece().getTeam() !=
+						  board.getTile(old_col, old_row).getPiece().getTeam()) {
 							System.out.println("Enemy piece occupied");
-							imageView.setY(old_col * 80);
-							imageView.setX(old_row * 80);
+							board.getTile(new_col, new_row).getPiece().getImageView().setImage(null);
+							board.getTile(new_col, new_row).removePiece();
+							board.getTile(new_col, new_row).insertPiece(board.getTile(old_col, old_row).getPiece());
+							board.getTile(old_col, old_row).removePiece();
+							imageView.setY(new_col * 80);
+							imageView.setX(new_row * 80);
 						}
 						  else if(board.getTile(new_col, new_row).getPiece() == null) {
 							board.getTile(new_col,  new_row).insertPiece(board.getTile(old_col,  old_row).getPiece());
 							board.getTile(old_col, old_row).removePiece();
 							System.out.println(board.getTile(old_col, old_row).isOccupied());
-							System.out.println("Old col = " +old_col + " old row = " +old_row);
+							System.out.println("Old col = " +old_col + " Old row = " +old_row);
 							imageView.setY(new_col * 80);
 							imageView.setX(new_row * 80);
 						}
@@ -141,7 +145,7 @@ public class Game {
 				if(piece != null) {
 					System.out.print("[" + board.getTile(i, j).getPiece().getName()+"]");
 				} else {
-					System.out.print("[ ]");
+					System.out.print("[  ]");
 				}
 			}
 			System.out.println();

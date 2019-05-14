@@ -19,7 +19,9 @@ public class Knight extends Piece {
 	/*** Accessor functions ***/
 	
 	public String getName() {
-		return "N";
+		if(team == Team.WHITE)
+			return "WN";
+		return "BN";
 	}
 	
 	@Override

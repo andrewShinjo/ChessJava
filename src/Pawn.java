@@ -28,7 +28,9 @@ public class Pawn extends Piece {
 	/*** Accessor functions ***/
 	
 	public String getName() {
-		return "P";
+		if(team == Team.WHITE)
+			return "WP";
+		return "BP";
 	}
 
 }

@@ -26,6 +26,9 @@ public class Rook extends Piece {
 	
 	/*** Accessor functions ***/
 	public String getName() {
-		return "R";
+		if(team == Team.WHITE)
+			return "WR";
+		
+		return "BR";
 	}
 }
