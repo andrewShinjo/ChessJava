@@ -13,8 +13,8 @@ public class Pawn extends Piece {
 		
 		imageViewer = new ImageView(image);	
 		
-		imageViewer.setFitHeight(100);
-		imageViewer.setFitWidth(100);
+		imageViewer.setFitHeight(80);
+		imageViewer.setFitWidth(80);
         imageViewer.setX(x);
         imageViewer.setY(y);
 	}

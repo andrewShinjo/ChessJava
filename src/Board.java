@@ -4,7 +4,7 @@ public class Board {
 
 	private static final int COL = 8;
 	private static final int ROW = 8;
-	private static final int SIDE = 100;
+	private static final int SIDE = 80;
 	
 	private static final Tile[][] chessBoard = new Tile[COL][ROW];
 	
