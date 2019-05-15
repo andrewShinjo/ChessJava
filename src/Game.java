@@ -123,8 +123,6 @@ public class Game {
 					
 					// If board is taken, bring piece to the current tile
 					printBoard();
-					
-					
 				}
 			});
 		}

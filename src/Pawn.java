@@ -10,19 +10,12 @@ public class Pawn extends Piece {
 		this.team = team;
 		String image = team == Team.WHITE ? "whitePawn.png" : "blackPawn.png";
 		
-		imageViewer = new ImageView(image);	
+		imageView = new ImageView(image);	
 		
-		imageViewer.setFitHeight(80);
-		imageViewer.setFitWidth(80);
-        imageViewer.setX(x);
-        imageViewer.setY(y);
-	}
-	
-	
-	@Override
-	public void move() {
-		// TODO Auto-generated method stub
-		
+		imageView.setFitHeight(80);
+		imageView.setFitWidth(80);
+        imageView.setX(x);
+        imageView.setY(y);
 	}
 	
 	/*** Accessor functions ***/
@@ -31,6 +24,12 @@ public class Pawn extends Piece {
 		if(team == Team.WHITE)
 			return "WP";
 		return "BP";
+	}
+
+	@Override
+	public boolean move(int new_col, int new_row, int old_col, int old_row) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 }

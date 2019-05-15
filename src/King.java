@@ -7,12 +7,12 @@ public class King extends Piece {
 		this.team = team;
 		String image = team == Team.WHITE ? "whiteKing.png" : "blackKing.png";
 		
-		imageViewer = new ImageView(image);	
+		imageView = new ImageView(image);	
 		
-		imageViewer.setFitHeight(80);
-		imageViewer.setFitWidth(80);
-        imageViewer.setX(x);
-        imageViewer.setY(y);
+		imageView.setFitHeight(80);
+		imageView.setFitWidth(80);
+        imageView.setX(x);
+        imageView.setY(y);
 	}
 	
 	/*** Accessor functions ***/
@@ -22,11 +22,11 @@ public class King extends Piece {
 		
 		return "BK";
 	}
-	
+
 	@Override
-	public void move() {
+	public boolean move(int new_col, int new_row, int old_col, int old_row) {
 		// TODO Auto-generated method stub
-		
+		return false;
 	}
 
 }
