@@ -26,6 +26,10 @@ public class Bishop extends Piece {
 	@Override
 	public boolean move(int new_col, int new_row, int old_col, int old_row) {
 		// TODO Auto-generated method stub
+		int dx = new_col - old_col;
+		int dy = new_row - old_row;
+		if(Math.abs(dx) == Math.abs(dy)) 
+			return true;
 		return false;
 	}
 	

@@ -29,7 +29,12 @@ public class Queen extends Piece{
 	@Override
 	public boolean move(int new_col, int new_row, int old_col, int old_row) {
 		// TODO Auto-generated method stub
+		int dx = new_row - old_row;
+		int dy = new_col - old_col;
+		if((Math.abs(dx) == Math.abs(dy)) || dx == 0 || dy == 0) 
+			return true;
 		return false;
+		
 	}
 	
 

@@ -106,44 +106,44 @@ public class Game {
 					int new_col = (int) Math.rint(y_final / 80);
 					
 					// Piece can only move if placed on a tile on the chess board.
-					if( new_col >= 0 && new_col < 8 && new_row >= 0 && new_row < 8) {
+					if( new_col >= 0 && new_col < 8 && new_row >= 0 && new_row < 8 
+							&& board.getTile(old_col, old_row).getPiece().move(new_col, new_row, old_col, old_row)) {
 						// If piece placed on same time, reset it back to same position.
 						if(board.getTile(new_col, new_row).getPiece() == board.getTile(old_col, old_row).getPiece()) {
 							imageView.setY(old_col * 80);
 							imageView.setX(old_row * 80);
+						} else if(board.getTile(new_col, new_row).isOccupied() == true) {
 							// If piece moved to a tile occupied by friendly piece,
 							// reset piece back to the original position.
-						} else if(board.getTile(new_col, new_row).isOccupied() == true &&
-						  board.getTile(new_col,  new_row).getPiece().getTeam() ==
-						  board.getTile(old_col, old_row).getPiece().getTeam()) {
-							imageView.setY(old_col * 80);
-							imageView.setX(old_row * 80);
+							if(board.getTile(old_col,  old_row).getPiece().getTeam() ==
+							   board.getTile(new_col,  new_row).getPiece().getTeam()) {
+								imageView.setY(old_col * 80);
+								imageView.setX(old_row * 80);
 							// If piece moved to a tile occupied by enemy piece,
 							// 1. remove image of the enemy piece from JavaFX (set it to null)
 							// 2. remove enemy piece from tile in board class.
 							// 3. insert piece that was moved into the new tile in board class.
 							// 4. remove piece moved from initial tile it was on in tile in the board class.
-							// set image location of piece that was moved to new tile location in JavaFX.
-						} else if(board.getTile(new_col, new_row).isOccupied() == true &&
-						  board.getTile(new_col,  new_row).getPiece().getTeam() !=
-						  board.getTile(old_col, old_row).getPiece().getTeam()) {
-							board.getTile(new_col, new_row).getPiece().getImageView().setImage(null);
-							board.getTile(new_col, new_row).removePiece();
-							board.getTile(new_col, new_row).insertPiece(board.getTile(old_col, old_row).getPiece());
-							board.getTile(old_col, old_row).removePiece();
-							imageView.setY(new_col * 80);
-							imageView.setX(new_row * 80);
-						}
+							// set image location of piece that was moved to new tile location in JavaFX.	
+							} else if(board.getTile(old_col,  old_row).getPiece().getTeam() !=
+									board.getTile(new_col,  new_row).getPiece().getTeam())	{
+								board.getTile(new_col, new_row).getPiece().getImageView().setImage(null);
+								board.getTile(new_col, new_row).removePiece();
+								board.getTile(new_col, new_row).insertPiece(board.getTile(old_col, old_row).getPiece());
+								board.getTile(old_col, old_row).removePiece();
+								imageView.setY(new_col * 80);
+								imageView.setX(new_row * 80);
 						// If piece moved to unoccupied tile,
 						// 1. insert piece into new tile in board class.
 						// 2. remove piece from original tile in board class.
 						// 3. set image location of piece that was moved to new tile loc in JavaFX.
-						  else if(board.getTile(new_col, new_row).isOccupied() == false) {
+							}
+						} else if(board.getTile(new_col, new_row).isOccupied() == false) {
 							board.getTile(new_col,  new_row).insertPiece(board.getTile(old_col,  old_row).getPiece());
 							board.getTile(old_col, old_row).removePiece();
 							imageView.setY(new_col * 80);
 							imageView.setX(new_row * 80);
-						}
+						  }
 						// If piece not placed somewhere on board,
 						// reset piece back to original location.
 					} else {

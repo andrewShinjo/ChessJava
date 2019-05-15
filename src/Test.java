@@ -61,14 +61,14 @@ public class Test extends Application {
         		}
             	
             	//Second scene shown
-                Scene secondScene = new Scene(secondaryLayout, 200, 200);
+                Scene secondScene = new Scene(secondaryLayout, 1000, 1600);
                 Stage secondStage = new Stage();
                 secondStage.setTitle("Chess");
                 secondStage.setScene(secondScene);
                 
                 //Set position of second window, related to primary window.
-                secondStage.setX(primaryStage.getX() + 250);
-                secondStage.setY(primaryStage.getY() + 100);
+                secondStage.setX(250);
+                secondStage.setY(0);
                 secondStage.show();
             }
         });

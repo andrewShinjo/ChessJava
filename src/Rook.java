@@ -31,7 +31,7 @@ public class Rook extends Piece {
 		int dx = new_col - old_col;
 		int dy = new_row - old_row;
 		
-		if((dx == 0 && dy != 0) || (dx != 0 && dy == 0))
+		if(dy == 0 || dx == 0)
 			return true;
 		return false;
 	}
