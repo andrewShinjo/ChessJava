@@ -16,8 +16,8 @@ public class Game {
 	private double y0piece;
 	private double dx;
 	private double dy;
-	private double new_dx;
-	private double new_dy;
+	private double x_final;
+	private double y_final;
 
 	/*** Constructor ***/
 	public Game() {
@@ -31,28 +31,27 @@ public class Game {
 		for(int i = 0; i < 16; i ++) {
 			allPieces[i] = whitePlayer.getPieces()[i];
 			allPieces[i+16] = blackPlayer.getPieces()[i];
-		}
-		
+		}		
 		for( int row = 0; row < board.getRow(); row++ ) {
 			board.getTile(0,  row).insertPiece(blackPlayer.getPieces()[row+8]);
 			board.getTile(1, row).insertPiece(blackPlayer.getPieces()[row]);
 			board.getTile(6,  row).insertPiece(whitePlayer.getPieces()[row + 8]);
 			board.getTile(7, row).insertPiece(whitePlayer.getPieces()[row]);
 		}	
-		
-//		for( int row = 0; row < board.getRow(); row++ ) {
-//			System.out.println(board.getTile(0,  row).getPiece().getTeam());
-//			System.out.println(board.getTile(1, row).getPiece().getTeam());
-//			System.out.println(board.getTile(1, row).getPiece().getTeam());
-//			System.out.println(board.getTile(7, row).getPiece().getTeam());
-//		}	
-
-		
 		printBoard();
 		
 		//move pieces
 		for(int i = 0; i < 32; i++) {
 			/*** Piece functionality on MOUSE_PRESSED ***/
+			/*********************************************************
+			 * MouseEvent.MOUSE_PRESSED
+			 * Get x, y coordinates of mouse upon mouse being pressed.
+			 * Get x, y coordinates of piece upon mouse being pressed.
+			 * x0mouse = x-coordinate of mouse.
+			 * y0mouse = y-coordinate of mouse.
+			 * x0piece = x-coordinate of piece clicked.
+			 * y0-piece = y-coordinate of piece clicked.
+			*********************************************************/
 			ImageView imageView = allPieces[i].getImageView();
 			imageView.addEventHandler(MouseEvent.MOUSE_PRESSED, new EventHandler<MouseEvent>() {
 				public void handle(MouseEvent t) {
@@ -63,44 +62,71 @@ public class Game {
 				}
 			});
 			/*** Piece functionality on MOUSE_DRAGGED ***/	
+			/************************************************************
+			 * MouseEvent.MOUSE_DRAGGED
+			 * Calculate displacement in x,y dir from x0mouse, y0mouse
+			 * to x,y coordinate mouse is being dragged to.
+			 * Calculate new position by adding original x-pos w/
+			 * displacement in x dir and original y-pos w/ displacement
+			 * in y dir.
+			 * Set image location of piece as new x, y pos calculated.
+			 * dx = displacement between x0mouse and x-pos of mouse as it
+			 * is dragged.
+			 * dy = displacement between y0mouse and y-pos of mouse as it
+			 * is dragged.
+			 * x0piece = x-coordinate of piece clicked.
+			 * y0-piece = y-coordinate of piece clicked.
+			************************************************************/
 			imageView.addEventHandler(MouseEvent.MOUSE_DRAGGED, new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent t) {
 				dx = t.getSceneX() - x0mouse;
 				dy = t.getSceneY() - y0mouse;
-				new_dx = x0piece + dx;
-				new_dy = y0piece + dy;
-				imageView.setX(new_dx);
-				imageView.setY(new_dy);
+				x_final = x0piece + dx;
+				y_final = y0piece + dy;
+				imageView.setX(x_final);
+				imageView.setY(y_final);
 				}
 			});
 			/*** Piece functionality on MOUSE_RELEASED ***/
+			/************************************************************
+			 * MouseEvent.MOUSE_RELEASED
+			 * Convert initial x-pos, y-pos into corresponding column and
+			 * row on the chess board.
+			 * Convert x_final, y_final into corresponding column and 
+			 * row on the chess board.
+			 * Test whether move is legal when mouse released.
+			************************************************************/
 			imageView.addEventHandler(MouseEvent.MOUSE_RELEASED, new EventHandler<MouseEvent>() {
 				@Override
-				public void handle(MouseEvent t) {
-					
+				public void handle(MouseEvent t) {		
 					int old_row = (int) Math.rint(x0piece / 80);
 					int old_col = (int) Math.rint(y0piece / 80);
-					System.out.println("old_row " + old_row + " old_col " + old_col);
-					int new_row = (int) Math.rint(new_dx / 80);
-					int new_col = (int) Math.rint(new_dy / 80);
-					System.out.println("new_row " + new_row + " new_col " + new_col);
+					int new_row = (int) Math.rint(x_final / 80);
+					int new_col = (int) Math.rint(y_final / 80);
 					
-					// If piece is placed on the board, allow piece to move
+					// Piece can only move if placed on a tile on the chess board.
 					if( new_col >= 0 && new_col < 8 && new_row >= 0 && new_row < 8) {
+						// If piece placed on same time, reset it back to same position.
 						if(board.getTile(new_col, new_row).getPiece() == board.getTile(old_col, old_row).getPiece()) {
 							imageView.setY(old_col * 80);
 							imageView.setX(old_row * 80);
+							// If piece moved to a tile occupied by friendly piece,
+							// reset piece back to the original position.
 						} else if(board.getTile(new_col, new_row).isOccupied() == true &&
 						  board.getTile(new_col,  new_row).getPiece().getTeam() ==
 						  board.getTile(old_col, old_row).getPiece().getTeam()) {
-							System.out.println("Friendly piece occupied");
 							imageView.setY(old_col * 80);
 							imageView.setX(old_row * 80);
+							// If piece moved to a tile occupied by enemy piece,
+							// 1. remove image of the enemy piece from JavaFX (set it to null)
+							// 2. remove enemy piece from tile in board class.
+							// 3. insert piece that was moved into the new tile in board class.
+							// 4. remove piece moved from initial tile it was on in tile in the board class.
+							// set image location of piece that was moved to new tile location in JavaFX.
 						} else if(board.getTile(new_col, new_row).isOccupied() == true &&
 						  board.getTile(new_col,  new_row).getPiece().getTeam() !=
 						  board.getTile(old_col, old_row).getPiece().getTeam()) {
-							System.out.println("Enemy piece occupied");
 							board.getTile(new_col, new_row).getPiece().getImageView().setImage(null);
 							board.getTile(new_col, new_row).removePiece();
 							board.getTile(new_col, new_row).insertPiece(board.getTile(old_col, old_row).getPiece());
@@ -108,19 +134,22 @@ public class Game {
 							imageView.setY(new_col * 80);
 							imageView.setX(new_row * 80);
 						}
-						  else if(board.getTile(new_col, new_row).getPiece() == null) {
+						// If piece moved to unoccupied tile,
+						// 1. insert piece into new tile in board class.
+						// 2. remove piece from original tile in board class.
+						// 3. set image location of piece that was moved to new tile loc in JavaFX.
+						  else if(board.getTile(new_col, new_row).isOccupied() == false) {
 							board.getTile(new_col,  new_row).insertPiece(board.getTile(old_col,  old_row).getPiece());
 							board.getTile(old_col, old_row).removePiece();
-							System.out.println(board.getTile(old_col, old_row).isOccupied());
-							System.out.println("Old col = " +old_col + " Old row = " +old_row);
 							imageView.setY(new_col * 80);
 							imageView.setX(new_row * 80);
 						}
+						// If piece not placed somewhere on board,
+						// reset piece back to original location.
 					} else {
 						imageView.setX(x0piece);
 						imageView.setY(y0piece);
-					}
-					
+					}				
 					// If board is taken, bring piece to the current tile
 					printBoard();
 				}
@@ -133,9 +162,21 @@ public class Game {
 		return board;
 	}
 
-
 	/*** Additional functions ***/
-
+	/*******************************
+	 * input: none -> output: void
+	 * Prints drawing of board class
+	 * on console, like the one below,
+	 *  to compare w/ JavaFX graphics.
+	[BR][BN][BB][BQ][BK][BB][BN][BR]
+	[BP][BP][BP][BP][BP][BP][BP][BP]
+	[  ][  ][  ][  ][  ][  ][  ][  ]
+	[  ][  ][  ][  ][  ][  ][  ][  ]
+	[  ][  ][  ][  ][  ][  ][  ][  ]
+	[  ][  ][  ][  ][  ][  ][  ][  ]
+	[WP][WP][WP][WP][WP][WP][WP][WP]
+	[WR][WN][WB][WQ][WK][WB][WN][WR]
+	*******************************/
 	public void printBoard() {
 		for(int i = 0; i < 8; i++) {
 			for(int j = 0; j < 8; j++) {
@@ -149,6 +190,4 @@ public class Game {
 			System.out.println();
 		}
 	}
-
 }
-

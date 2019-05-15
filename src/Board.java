@@ -11,8 +11,7 @@ public class Board {
 	public Board() {
 		
 		for(int col = 0; col < COL; col++) {
-			for(int row = 0; row < ROW; row++) {
-				
+			for(int row = 0; row < ROW; row++) {	
 				Color tileColor = ((col + row) % 2 == 0) ? Color.WHITE : Color.GRAY;	
 				chessBoard[col][row] = new Tile(row*SIDE, col*SIDE, SIDE, SIDE, tileColor);
 			}		

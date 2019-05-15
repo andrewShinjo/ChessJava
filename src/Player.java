@@ -7,8 +7,7 @@ public class Player {
 	private Team team;
 	private Piece[] pieces = new Piece[16];
 	
-	public Player(Team team) {
-		
+	public Player(Team team) {	
 		this.team = team;
 		
 		if(team.equals(Team.WHITE)) {
@@ -50,7 +49,6 @@ public class Player {
 				new Rook(Team.BLACK, 560, 0)
 				};			
 		}
-		
 	}
 	
 	/*** Accessor functions ***/

@@ -18,21 +18,21 @@ public class Rook extends Piece {
 	    imageView.setY(y);
 	}
 
-	
-	
 	/*** Accessor functions ***/
 	public String getName() {
 		if(team == Team.WHITE)
 			return "WR";
-		
 		return "BR";
 	}
-
-
 
 	@Override
 	public boolean move(int new_col, int new_row, int old_col, int old_row) {
 		// TODO Auto-generated method stub
+		int dx = new_col - old_col;
+		int dy = new_row - old_row;
+		
+		if((dx == 0 && dy != 0) || (dx != 0 && dy == 0))
+			return true;
 		return false;
 	}
 }

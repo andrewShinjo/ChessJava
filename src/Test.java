@@ -44,10 +44,7 @@ public class Test extends Application {
             	Pane secondaryLayout = new Pane();
 
             	//Position for all the pieces
-                
                 Game game = new Game();
-                
-            	
                 
             	//creating chessBoard
             	for(int col = 0; col < chessBoard.getCol(); col++) {
@@ -56,7 +53,7 @@ public class Test extends Application {
         			}		
         		}
             	
-            	for( int row = 0; row < 8; row++ ) {
+            	for(int row = 0; row < 8; row++) {
             		secondaryLayout.getChildren().add(game.getBoard().getTile(0,  row).getPiece().getImageView());
             		secondaryLayout.getChildren().add(game.getBoard().getTile(1, row).getPiece().getImageView());
             		secondaryLayout.getChildren().add(game.getBoard().getTile(6,  row).getPiece().getImageView());
@@ -65,7 +62,6 @@ public class Test extends Application {
             	
             	//Second scene shown
                 Scene secondScene = new Scene(secondaryLayout, 200, 200);
-
                 Stage secondStage = new Stage();
                 secondStage.setTitle("Chess");
                 secondStage.setScene(secondScene);
@@ -73,7 +69,6 @@ public class Test extends Application {
                 //Set position of second window, related to primary window.
                 secondStage.setX(primaryStage.getX() + 250);
                 secondStage.setY(primaryStage.getY() + 100);
- 
                 secondStage.show();
             }
         });
