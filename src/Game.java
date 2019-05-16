@@ -107,7 +107,7 @@ public class Game {
 					
 					// Piece can only move if placed on a tile on the chess board.
 					if( new_col >= 0 && new_col < 8 && new_row >= 0 && new_row < 8 
-							&& board.getTile(old_col, old_row).getPiece().move(new_col, new_row, old_col, old_row)) {
+							&& isLegalMove(board.getTile(old_col, old_row).getPiece(), new_col, new_row, old_col, old_row)==true) {
 						// If piece placed on same time, reset it back to same position.
 						if(board.getTile(new_col, new_row).getPiece() == board.getTile(old_col, old_row).getPiece()) {
 							imageView.setY(old_col * 80);
@@ -133,11 +133,11 @@ public class Game {
 								board.getTile(old_col, old_row).removePiece();
 								imageView.setY(new_col * 80);
 								imageView.setX(new_row * 80);
+							}
 						// If piece moved to unoccupied tile,
 						// 1. insert piece into new tile in board class.
 						// 2. remove piece from original tile in board class.
-						// 3. set image location of piece that was moved to new tile loc in JavaFX.
-							}
+						// 3. set image location of piece that was moved to new tile loc in JavaFX.	
 						} else if(board.getTile(new_col, new_row).isOccupied() == false) {
 							board.getTile(new_col,  new_row).insertPiece(board.getTile(old_col,  old_row).getPiece());
 							board.getTile(old_col, old_row).removePiece();
@@ -150,7 +150,6 @@ public class Game {
 						imageView.setX(x0piece);
 						imageView.setY(y0piece);
 					}				
-					// If board is taken, bring piece to the current tile
 					printBoard();
 				}
 			});
@@ -189,5 +188,29 @@ public class Game {
 			}
 			System.out.println();
 		}
+	}
+	
+	private boolean isLegalMove(Piece piece, int new_col, int new_row, int old_col, int old_row) {
+		int dx = new_row - old_row;
+		int dy = new_col - old_col;
+		if(piece.move(new_col, new_row, old_col, old_row)==true) {
+			if(piece instanceof Pawn) {
+				if(dx==0) {
+				for(int i = old_col + 1; i <= new_col; i++) {
+					if(board.getTile(i, old_row).isOccupied())
+						return false;
+				}
+				return true;
+			} else if(dx != 0 && board.getTile(new_col, new_row).getPiece() != null) {
+				if(board.getTile(new_col, new_row).getPiece().getTeam() !=
+				   board.getTile(old_col, old_row).getPiece().getTeam()) {
+					return true;
+				}
+			}
+			return false;
+		} 
+			return true;
+		}
+		return false;
 	}
 }
