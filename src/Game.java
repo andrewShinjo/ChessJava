@@ -107,6 +107,7 @@ public class Game {
 					
 					// Piece can only move if placed on a tile on the chess board.
 					if( new_col >= 0 && new_col < 8 && new_row >= 0 && new_row < 8 
+							//&& board.getTile(old_col, old_row).getPiece().move(new_col, new_row, old_col, old_row)
 							&& isLegalMove(board.getTile(old_col, old_row).getPiece(), new_col, new_row, old_col, old_row)==true) {
 						// If piece placed on same time, reset it back to same position.
 						if(board.getTile(new_col, new_row).getPiece() == board.getTile(old_col, old_row).getPiece()) {
@@ -193,24 +194,161 @@ public class Game {
 	private boolean isLegalMove(Piece piece, int new_col, int new_row, int old_col, int old_row) {
 		int dx = new_row - old_row;
 		int dy = new_col - old_col;
-		if(piece.move(new_col, new_row, old_col, old_row)==true) {
+		
+		if(piece.move(new_col, new_row, old_col, old_row)) {
+			//Pawn's rule
 			if(piece instanceof Pawn) {
 				if(dx==0) {
-				for(int i = old_col + 1; i <= new_col; i++) {
-					if(board.getTile(i, old_row).isOccupied())
+					if(board.getTile(new_col, old_row).isOccupied()) {
 						return false;
-				}
-				return true;
-			} else if(dx != 0 && board.getTile(new_col, new_row).getPiece() != null) {
-				if(board.getTile(new_col, new_row).getPiece().getTeam() !=
-				   board.getTile(old_col, old_row).getPiece().getTeam()) {
+					}
 					return true;
+				} else if(dx != 0 && board.getTile(new_col, new_row).getPiece() != null) {
+					if(board.getTile(new_col, new_row).getPiece().getTeam() !=
+							board.getTile(old_col, old_row).getPiece().getTeam()) {
+						return true;
+					}
+				}
+				return false;
+			}
+			//Rook's rule
+			if(piece instanceof Rook) {
+				if(Math.abs(dx) > 0) {
+					if(dx > 0) {
+						for(int i = 1; i < Math.abs(dx); i++) {
+							if(board.getTile(old_col, old_row + i).isOccupied()) {
+								return false;
+							}
+						}
+						return true;
+					} else {
+						for(int i = 1; i < Math.abs(dx); i++) {
+							if(board.getTile(old_col, old_row - i).isOccupied()) {
+								return false;
+							}
+						}
+					}
+				} else if(Math.abs(dy) > 0) {
+					if(dy > 0) {
+						for(int i = 1; i < Math.abs(dy); i++) {
+							if(board.getTile(old_col + i, old_row).isOccupied()) {
+								return false;
+							}
+						}
+						return true;
+					} else {
+						for(int i = 1; i < Math.abs(dy); i++) {
+							if(board.getTile(old_col - i, old_row).isOccupied()) {
+								return false;
+							}
+						}
+					}
 				}
 			}
-			return false;
-		} 
+			//Queen's rule
+			if(piece instanceof Queen) {
+				if(Math.abs(dx) > 0 && dy == 0) {
+					if(dx > 0) {
+						for(int i = 1; i < Math.abs(dx); i++) {
+							if(board.getTile(old_col, old_row + i).isOccupied()) {
+								return false;
+							}
+						}
+						return true;
+					} else {
+						for(int i = 1; i < Math.abs(dx); i++) {
+							if(board.getTile(old_col, old_row - i).isOccupied()) {
+								return false;
+							}
+						}
+					}
+				} else if(Math.abs(dy) > 0 && dx == 0) {
+					if(dy > 0) {
+						for(int i = 1; i < Math.abs(dy); i++) {
+							if(board.getTile(old_col + i, old_row).isOccupied()) {
+								return false;
+							}
+						}
+						return true;
+					} else {
+						for(int i = 1; i < Math.abs(dy); i++) {
+							if(board.getTile(old_col - i, old_row).isOccupied()) {
+								return false;
+							}
+						}
+					}
+				} else if(Math.abs(dy) > 0 && Math.abs(dx) > 0) {
+					if(dx > 0 && dy > 0) {
+						for(int i = 1; i < Math.abs(dx); i++) {
+							if(board.getTile(old_col + i, old_row + i).isOccupied()) {
+								return false;
+							}
+						}
+						return true;
+					} else if(dx > 0 && dy < 0) {
+						for(int i = 1; i < Math.abs(dx); i++) {
+							if(board.getTile(old_col - i, old_row + i).isOccupied()) {
+								return false;
+							}
+						}
+						return true;
+					} else if (dx < 0 && dy < 0) {
+						for(int i = 1; i < Math.abs(dx); i++) {
+							if(board.getTile(old_col -i, old_row - i).isOccupied()) {
+								return false;
+							}
+						}
+						return true;
+					} else {
+						for(int i = 1; i < Math.abs(dx); i++) {
+							if(board.getTile(old_col + i, old_row - i).isOccupied()) {
+								return false;
+							}
+						}
+						return true;
+					}
+				}
+				return false;
+			}
+			//Bishop's rule
+			if(piece instanceof Bishop) {
+				if(Math.abs(dy) > 0 && Math.abs(dx) > 0) {
+					if(dx > 0 && dy > 0) {
+						for(int i = 1; i < Math.abs(dx); i++) {
+							if(board.getTile(old_col + i, old_row + i).isOccupied()) {
+								return false;
+							}
+						}
+						return true;
+					} else if(dx > 0 && dy < 0) {
+						for(int i = 1; i < Math.abs(dx); i++) {
+							if(board.getTile(old_col - i, old_row + i).isOccupied()) {
+								return false;
+							}
+						}
+						return true;
+					} else if (dx < 0 && dy < 0) {
+						for(int i = 1; i < Math.abs(dx); i++) {
+							if(board.getTile(old_col -i, old_row - i).isOccupied()) {
+								return false;
+							}
+						}
+						return true;
+					} else {
+						for(int i = 1; i < Math.abs(dx); i++) {
+							if(board.getTile(old_col + i, old_row - i).isOccupied()) {
+								return false;
+							}
+						}
+						return true;
+					}
+				}
+				return false;
+			}
 			return true;
 		}
+		
 		return false;
+		
 	}
 }
