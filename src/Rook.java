@@ -8,6 +8,7 @@ public class Rook extends Piece {
 	
 	public Rook(Team team, int x, int y) {
 		this.team = team;
+		hasMoved=false;
 		String image = team == Team.WHITE ? "whiteRook.png" : "blackRook.png";
 		
 		imageView = new ImageView(image);	

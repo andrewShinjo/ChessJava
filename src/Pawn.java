@@ -3,13 +3,11 @@ import javafx.scene.image.ImageView;
 
 public class Pawn extends Piece {
 
-	/*** Private member variables ***/
-	private boolean hasMoved;
 	
 	/*** Constructor ***/
 	public Pawn(Team team, int x, int y) {
 		this.team = team;
-		this.hasMoved = false;
+		hasMoved = false;
 	
 		String image = team == Team.WHITE ? "whitePawn.png" : "blackPawn.png";
 		

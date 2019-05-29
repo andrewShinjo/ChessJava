@@ -5,6 +5,7 @@ public class Bishop extends Piece {
 	/*** Constructor ***/
 	public Bishop(Team team, int x, int y) {
 		this.team = team;
+		hasMoved = false;
 		String image = team == Team.WHITE ? "whiteBishop.png" : "blackBishop.png";
 		
 		imageView = new ImageView(image);	

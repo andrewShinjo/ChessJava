@@ -6,10 +6,10 @@ public class Knight extends Piece {
 	/*** Constructor ***/
 	public Knight(Team team, int x, int y) {
 		this.team = team;
+		hasMoved = false;
 		String image = team == Team.WHITE ? "whiteKnight.png" : "blackKnight.png";
 		
 		imageView = new ImageView(image);	
-		
 		imageView.setFitHeight(80);
 		imageView.setFitWidth(80);
         imageView.setX(x);

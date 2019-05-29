@@ -107,8 +107,7 @@ public class Game {
 					
 					// Piece can only move if placed on a tile on the chess board.
 					if( new_col >= 0 && new_col < 8 && new_row >= 0 && new_row < 8 
-							//&& board.getTile(old_col, old_row).getPiece().move(new_col, new_row, old_col, old_row)
-							&& isLegalMove(board.getTile(old_col, old_row).getPiece(), new_col, new_row, old_col, old_row)==true) {
+					&& isLegalMove(board.getTile(old_col, old_row).getPiece(), new_col, new_row, old_col, old_row)==true) {
 						// If piece placed on same time, reset it back to same position.
 						if(board.getTile(new_col, new_row).getPiece() == board.getTile(old_col, old_row).getPiece()) {
 							imageView.setY(old_col * 80);
@@ -127,10 +126,11 @@ public class Game {
 							// 4. remove piece moved from initial tile it was on in tile in the board class.
 							// set image location of piece that was moved to new tile location in JavaFX.	
 							} else if(board.getTile(old_col,  old_row).getPiece().getTeam() !=
-									board.getTile(new_col,  new_row).getPiece().getTeam())	{
+							board.getTile(new_col,  new_row).getPiece().getTeam())	{
 								board.getTile(new_col, new_row).getPiece().getImageView().setImage(null);
 								board.getTile(new_col, new_row).removePiece();
 								board.getTile(new_col, new_row).insertPiece(board.getTile(old_col, old_row).getPiece());
+								board.getTile(new_col, new_row).getPiece().moved();
 								board.getTile(old_col, old_row).removePiece();
 								imageView.setY(new_col * 80);
 								imageView.setX(new_row * 80);
@@ -140,10 +140,27 @@ public class Game {
 						// 2. remove piece from original tile in board class.
 						// 3. set image location of piece that was moved to new tile loc in JavaFX.	
 						} else if(board.getTile(new_col, new_row).isOccupied() == false) {
-							board.getTile(new_col,  new_row).insertPiece(board.getTile(old_col,  old_row).getPiece());
-							board.getTile(old_col, old_row).removePiece();
-							imageView.setY(new_col * 80);
-							imageView.setX(new_row * 80);
+							
+							// Special case: test if king can castle
+							if(canKingCastle(board.getTile(old_col,  old_row).getPiece())==true &&
+							new_col == 7 && new_row == 6) {
+								board.getTile(7,7).getPiece().getImageView().setY(7*80);
+								board.getTile(7, 7).getPiece().getImageView().setX(5 * 80);
+								board.getTile(7, 6).insertPiece(board.getTile(old_col,  old_row).getPiece());
+								board.getTile(7, 6).getPiece().moved();
+								board.getTile(7, 4).removePiece();
+								board.getTile(7, 5).insertPiece(board.getTile(7, 7).getPiece());
+								board.getTile(7, 5).getPiece().moved();
+								board.getTile(7, 7).removePiece();
+								imageView.setY(new_col*80);
+								imageView.setX(new_row*80);
+							} else {
+								board.getTile(new_col,  new_row).insertPiece(board.getTile(old_col,  old_row).getPiece());
+								board.getTile(new_col,  new_row).getPiece().moved();
+								board.getTile(old_col, old_row).removePiece();
+								imageView.setY(new_col * 80);
+								imageView.setX(new_row * 80);
+							}
 						  }
 						// If piece not placed somewhere on board,
 						// reset piece back to original location.
@@ -261,6 +278,7 @@ public class Game {
 								return false;
 							}
 						}
+						return true;
 					}
 				} else if(Math.abs(dy) > 0 && dx == 0) {
 					if(dy > 0) {
@@ -276,6 +294,7 @@ public class Game {
 								return false;
 							}
 						}
+						return true;
 					}
 				} else if(Math.abs(dy) > 0 && Math.abs(dx) > 0) {
 					if(dx > 0 && dy > 0) {
@@ -345,10 +364,33 @@ public class Game {
 				}
 				return false;
 			}
+			
+			// King's rule
+			if(piece instanceof King) {
+				if(Math.abs(dx)==2 && canKingCastle(piece)==false ) {
+					return false;
+				}
+			}
+			
 			return true;
+			
+			
 		}
 		
 		return false;
 		
 	}
+	
+	private boolean canKingCastle(Piece piece) {
+		if(piece instanceof King) {
+			// White castle short
+			if(piece.hasMoved()==false && piece.getTeam() == Team.WHITE && ! board.getTile(7, 5).isOccupied() && ! board.getTile(7, 6).isOccupied() &&
+		    board.getTile(7, 7).getPiece().hasMoved() == false) {
+				System.out.println("HELLO");
+				return true;
+			}
+		}
+		return false;
+	}
+	
 }

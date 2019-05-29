@@ -8,6 +8,7 @@ public class Queen extends Piece{
 	/*** Constructor ***/
 	public Queen(Team team, int x, int y) {
 		this.team = team;
+		hasMoved = false;
 		String image = team == Team.WHITE ? "whiteQueen.png" : "blackQueen.png";
 		
 		imageView = new ImageView(image);	
