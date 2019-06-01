@@ -142,10 +142,10 @@ public class Game {
 						} else if(board.getTile(new_col, new_row).isOccupied() == false) {
 							
 							// Special case: test if king can castle
-							if(canKingCastle(board.getTile(old_col,  old_row).getPiece())==true &&
+							if(canKingCastle(board.getTile(old_col,  old_row).getPiece()) &&
 							new_col == 7 && new_row == 6) {
-								board.getTile(7,7).getPiece().getImageView().setY(7*80);
-								board.getTile(7, 7).getPiece().getImageView().setX(5 * 80);
+								board.getTile(7, 7).getPiece().getImageView().setY(7*80);
+								board.getTile(7, 7).getPiece().getImageView().setX(5*80);
 								board.getTile(7, 6).insertPiece(board.getTile(old_col,  old_row).getPiece());
 								board.getTile(7, 6).getPiece().moved();
 								board.getTile(7, 4).removePiece();
@@ -384,10 +384,16 @@ public class Game {
 	private boolean canKingCastle(Piece piece) {
 		if(piece instanceof King) {
 			// White castle short
-			if(piece.hasMoved()==false && piece.getTeam() == Team.WHITE && ! board.getTile(7, 5).isOccupied() && ! board.getTile(7, 6).isOccupied() &&
-		    board.getTile(7, 7).getPiece().hasMoved() == false) {
-				System.out.println("HELLO");
-				return true;
+			if(piece.hasMoved() == false && piece.getTeam() == Team.WHITE) {
+				if (!board.getTile(7, 5).isOccupied() && !board.getTile(7, 6).isOccupied() 
+					 	&& !board.getTile(7, 7).getPiece().hasMoved()) {
+					System.out.println("HELLO");
+					return true;
+//				} else if (isLegalMove(board.getTile(7, 0).getPiece(), 7, 3, 7, 0) 
+//						&& !board.getTile(7, 0).getPiece().hasMoved()) {
+//					return true;
+				}
+					
 			}
 		}
 		return false;

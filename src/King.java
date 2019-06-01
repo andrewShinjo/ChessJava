@@ -37,7 +37,7 @@ public class King extends Piece {
 		int dx = new_row - old_row;
 		if((Math.abs(dx) == 1 && dy == 0)|| (Math.abs(dy) == 1 && dx == 0) 
 				|| (Math.abs(dy) == 1 && Math.abs(dx) == 1) ||
-				Math.abs(dx)==2 || Math.abs(dx)==3)
+				Math.abs(dx)==2 || Math.abs(dx)==3 )
 			return true;
 		return false;
 	}
