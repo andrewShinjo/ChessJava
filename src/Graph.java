@@ -1,5 +1,3 @@
-package finalProject;
-
 /**
  * Graph.java
  * @author Thinh Nguyen
