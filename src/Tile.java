@@ -6,10 +6,11 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 
 public class Tile extends Rectangle {
+	/***Member variables***/
 	private boolean isOccupied;
-	
 	private Piece piece;
 	
+	/***Constructors***/
 	public Tile(int x, int y, int w, int h, Color c) {
 		this.isOccupied = false;
 		setX(x);
@@ -18,7 +19,6 @@ public class Tile extends Rectangle {
     	setHeight(h);
     	setFill(c);
 	}
-	
 	public Tile(int x, int y, int w, int h, Color c, Piece piece) {
 		this.isOccupied = true;
 		this.piece = piece;
@@ -28,6 +28,7 @@ public class Tile extends Rectangle {
     	setHeight(h);
     	setFill(c);
 	}
+	
 	/*** Accessor functions ***/
 	public boolean isOccupied() {
 		return this.isOccupied;

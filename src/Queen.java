@@ -10,6 +10,8 @@ public class Queen extends Piece{
 		this.team = team;
 		hasMoved = false;
 		String image = team == Team.WHITE ? "whiteQueen.png" : "blackQueen.png";
+		dx = new int[] {-1, -1, -1, 0, 0, 1, 1, 1};
+		dy = new int[] {-1, 0, 1, -1, 1, -1, 0, 1};
 		
 		imageView = new ImageView(image);	
 		
@@ -27,16 +29,6 @@ public class Queen extends Piece{
 		return "BQ";
 	}
 
-	@Override
-	public boolean move(int new_col, int new_row, int old_col, int old_row) {
-		// TODO Auto-generated method stub
-		int dx = new_row - old_row;
-		int dy = new_col - old_col;
-		if((Math.abs(dx) == Math.abs(dy)) || dx == 0 || dy == 0) 
-			return true;
-		return false;
-		
-	}
 	
 
 }

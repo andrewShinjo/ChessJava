@@ -7,6 +7,8 @@ public class Bishop extends Piece {
 		this.team = team;
 		hasMoved = false;
 		String image = team == Team.WHITE ? "whiteBishop.png" : "blackBishop.png";
+		this.dx = new int[] {-1, -1, 1, 1};
+		this.dy = new int[] {-1, 1, -1, 1};
 		
 		imageView = new ImageView(image);	
 		
@@ -24,15 +26,6 @@ public class Bishop extends Piece {
 		return "BB";
 	}
 
-	@Override
-	public boolean move(int new_col, int new_row, int old_col, int old_row) {
-		// TODO Auto-generated method stub
-		int dx = new_col - old_col;
-		int dy = new_row - old_row;
-		if(Math.abs(dx) == Math.abs(dy)) 
-			return true;
-		return false;
-	}
 	
 
 

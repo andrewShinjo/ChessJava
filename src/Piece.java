@@ -3,12 +3,15 @@ import javafx.scene.image.ImageView;
 
 public abstract class Piece {
 
+	/*** Member variables ***/
 	protected Image image;
 	protected ImageView imageView;
 	protected Team team;
 	protected boolean hasMoved;
+	protected int[] dx;
+	protected int[] dy;
 	
-	public abstract boolean move(int new_col, int new_row, int old_col, int old_row);
+	/*** Abstract functions ***/
 	public abstract String getName();
 	
 	/*** Accessor functions ***/
@@ -24,9 +27,19 @@ public abstract class Piece {
 		return hasMoved;
 	}
 	
+	public int[] getdx() {
+		return dx;
+	}
+	
+	public int[] getdy() {
+		return dy;
+	}
+	
 	/*** Mutator function ***/
 	public void moved() {
 		hasMoved=true;
 	}
+	
+	
 	
 }

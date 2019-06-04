@@ -8,6 +8,8 @@ public class Knight extends Piece {
 		this.team = team;
 		hasMoved = false;
 		String image = team == Team.WHITE ? "whiteKnight.png" : "blackKnight.png";
+		dx = new int[] {-2, -2, -1, -1, 1, 1, 2, 2};
+		dy = new int[] {-1, 1, -2, 2, -2, 2, -1, 1};
 		
 		imageView = new ImageView(image);	
 		imageView.setFitHeight(80);
@@ -24,15 +26,7 @@ public class Knight extends Piece {
 		return "BN";
 	}
 
-	@Override
-	public boolean move(int new_col, int new_row, int old_col, int old_row) {
-		// TODO Auto-generated method stub
-		int dx = new_col - old_col;
-		int dy = new_row - old_row;
-		if((Math.abs(dx) == 1 && Math.abs(dy) == 2) || (Math.abs(dx) == 2 && Math.abs(dy) == 1))
-			return true;
-		return false;
-	}
+
 	
 
 }

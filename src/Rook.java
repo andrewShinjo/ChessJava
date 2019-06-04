@@ -10,6 +10,8 @@ public class Rook extends Piece {
 		this.team = team;
 		hasMoved=false;
 		String image = team == Team.WHITE ? "whiteRook.png" : "blackRook.png";
+		dx = new int[] {-1, 0, 0, 1};
+		dy = new int[] {0, -1, 1, 0};
 		
 		imageView = new ImageView(image);	
 		
@@ -26,14 +28,4 @@ public class Rook extends Piece {
 		return "BR";
 	}
 
-	@Override
-	public boolean move(int new_col, int new_row, int old_col, int old_row) {
-		// TODO Auto-generated method stub
-		int dx = new_col - old_col;
-		int dy = new_row - old_row;
-		
-		if(dy == 0 || dx == 0)
-			return true;
-		return false;
-	}
 }
