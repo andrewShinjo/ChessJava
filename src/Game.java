@@ -37,6 +37,7 @@ public class Game
 			board.getTile(7, row).insertPiece(whitePlayer.getPieces()[row]);
 		}	
 		printBoard();
+		updateGraph();
 		
 		//move pieces
 		for(int i = 0; i < 32; i++) 
@@ -113,6 +114,7 @@ public class Game
 					// Piece can only move if placed on a tile on the chess board.
 					if(new_col >= 0 && new_col < 8 && new_row >= 0 && new_row < 8) 
 					{
+						updateGraph();
 						// If piece placed on same time, reset it back to same position.
 						if(board.getTile(new_col, new_row).getPiece() == board.getTile(old_col, old_row).getPiece()) 
 						{
@@ -226,7 +228,7 @@ public class Game
 					{
 						int dy = board.getTile(i, j).getPiece().getdy()[x];
 						int dx = board.getTile(i, j).getPiece().getdx()[x];
-						if(i+dy >= 0 && i+dy <= 8 &&j+dx >= 0 && j+dx <= 8)
+						if(i+dy >= 0 && i+dy <= 7 && j+dx >= 0 && j+dx <= 7)
 						{
 							board.addDirectedEdge(i, j, i+dy, j+dx);
 						}
