@@ -1,6 +1,9 @@
+import java.util.LinkedList;
+
 import javafx.event.EventHandler;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.shape.Line;
 
 public class Game 
 {
@@ -8,6 +11,8 @@ public class Game
 	private Board board;
 	private Piece[] allPieces;
 	private Player whitePlayer, blackPlayer;
+	private Team move;
+	private int totalMoves;
 	
 	/*** Additional variables for MOUSE_PRESSED, MOUSE_DRAGGED, and MOUSE_RELEASED functionalities ***/
 	private double x0mouse, y0mouse, x0piece, y0piece;
@@ -22,6 +27,8 @@ public class Game
 		blackPlayer = new Player(Team.BLACK);
 		board = new Board();
 		allPieces = new Piece[32];
+		move = Team.WHITE;
+		totalMoves=0;
 		
 		//inserting all pieces for two sides
 		for(int i = 0; i < 16; i ++) 
@@ -60,7 +67,13 @@ public class Game
 				x0mouse = t.getSceneX();
 				y0mouse = t.getSceneY();
 				x0piece = imageView.getX();
-				y0piece = imageView.getY();	
+				y0piece = imageView.getY();
+				
+				int x0 = (int) Math.rint(x0piece / 80);
+				int y0 = (int) Math.rint(y0piece / 80);
+				
+				board.getTile(y0, x0).getPiece();
+				
 				}
 			});
 			/*** Piece functionality on MOUSE_DRAGGED ***/	
@@ -112,7 +125,8 @@ public class Game
 					int new_col = (int) Math.rint(y_final / 80);
 					
 					// Piece can only move if placed on a tile on the chess board.
-					if(new_col >= 0 && new_col < 8 && new_row >= 0 && new_row < 8) 
+					if(new_col >= 0 && new_col < 8 && new_row >= 0 && new_row < 8 &&
+					   board.getTile(old_col, old_row).getPiece().getTeam() == move) 
 					{
 						updateGraph();
 						// If piece placed on same time, reset it back to same position.
@@ -161,11 +175,14 @@ public class Game
 							imageView.setY(new_col * 80);
 							imageView.setX(new_row * 80);
 						  }
-						// If piece not placed somewhere on board,
-						// reset piece back to original location.
+						// If white moved, black's turn. If black moved, white's turn.
+						move = (move == Team.WHITE ? Team.BLACK : Team.WHITE);
+						totalMoves++;
 					} 
 					else 
 					{
+						// If piece not placed somewhere on board,
+						// reset piece back to original location.
 						imageView.setX(x0piece);
 						imageView.setY(y0piece);
 					}				
@@ -179,6 +196,11 @@ public class Game
 	public Board getBoard() 
 	{
 		return board;
+	}
+	
+	public int getTotalMoves()
+	{
+		return totalMoves;
 	}
 
 	/*** Additional functions ***/
@@ -224,18 +246,51 @@ public class Game
 			{
 				if(board.getTile(i, j).isOccupied())
 				{
-					for(int x=0; x < board.getTile(i, j).getPiece().getdx().length; x++)
-					{
-						int dy = board.getTile(i, j).getPiece().getdy()[x];
-						int dx = board.getTile(i, j).getPiece().getdx()[x];
-						if(i+dy >= 0 && i+dy <= 7 && j+dx >= 0 && j+dx <= 7)
+					if(board.getTile(i, j).getPiece().getTeam() == Team.BLACK) 
+					{	
+						for(int x=0; x < board.getTile(i, j).getPiece().getdx().length; x++)
 						{
-							board.addDirectedEdge(i, j, i+dy, j+dx);
+							int dy = board.getTile(i, j).getPiece().getdy()[x];
+							int dx = board.getTile(i, j).getPiece().getdx()[x];
+							if(i+dy >= 0 && i+dy <= 7 && j+dx >= 0 && j+dx <= 7)
+							{
+								board.addDirectedEdge(i, j, i+dy, j+dx);
+							}
+						}
+					}
+					else
+					{
+						for(int x=0; x < board.getTile(i, j).getPiece().getdx().length; x++)
+						{
+							int dy = -1 * board.getTile(i, j).getPiece().getdy()[x];
+							int dx = -1 * board.getTile(i, j).getPiece().getdx()[x];
+							if(i+dy >= 0 && i+dy <= 7 && j+dx >= 0 && j+dx <= 7)
+							{
+								board.addDirectedEdge(i, j, i+dy, j+dx);
+							}
 						}
 					}
 				}
 			}
 		}
+	}
+	
+	public LinkedList<Line> showDirectedEdge(int x0, int y0) 
+	{
+		LinkedList<Line> list = new LinkedList<Line>();
+		for(int i = 0; i < board.getAdjListArr()[y0][x0].size(); i++)
+		{
+			Line line = new Line();
+			
+			line.setStartX(x0*80);
+			line.setStartY(y0*80);
+			
+			line.setEndX(board.getAdjListArr()[y0][x0].get(i).getX() / 80);
+			line.setEndY(board.getAdjListArr()[y0][x0].get(i).getY() / 80);
+			
+			list.addLast(line);
+		}
+		return list;
 	}
 	
 }

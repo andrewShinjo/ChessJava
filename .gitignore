@@ -1,0 +1,3 @@
+# Don't track content of these folders
+.classpath/
+javafx-sdk-11.0.2/

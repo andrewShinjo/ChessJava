@@ -56,6 +56,11 @@ public class Board {
 		return TILES;
 	}
 	
+	public LinkedList<Tile>[][] getAdjListArr() 
+	{
+		return adjListArr;
+	}
+	
 	/***Additional functions***/
 	public void addDirectedEdge(int col_0, int row_0, int col_f, int row_f) 
 	{

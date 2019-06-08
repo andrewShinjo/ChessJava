@@ -7,7 +7,7 @@ public class Pawn extends Piece {
 	public Pawn(Team team, int x, int y) {
 		this.team = team;
 		hasMoved = false;
-		String image = team == Team.WHITE ? "whitePawn.png" : "blackPawn.png";
+		String image = (team == Team.WHITE ? "whitePawn.png" : "blackPawn.png");
 		dx = new int[] {-1, 0, 1, 0};
 		dy = new int[] {1, 1, 1, 2};
 		
