@@ -72,6 +72,16 @@ public class Test extends Application
                     {
                     	String name = (debugButton.getText() == "Debug On" ? "Debug Off" : "Debug On");
                     	debugButton.setText(name);
+                    	
+                    	if(name=="Debug Off")
+                    	{
+                    				LinkedList<Line> line = game.showDirectedEdge(7, 1);
+                    				for(int i = 0; i < line.size(); i++)
+                    				{
+                    					secondaryLayout.getChildren().add(line.get(i));
+                    				}
+                					secondaryLayout.requestLayout();   		
+                    	}
                     }
                 
                 });

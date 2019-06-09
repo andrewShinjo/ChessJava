@@ -275,18 +275,18 @@ public class Game
 		}
 	}
 	
-	public LinkedList<Line> showDirectedEdge(int x0, int y0) 
+	public LinkedList<Line> showDirectedEdge(int y0, int x0) 
 	{
 		LinkedList<Line> list = new LinkedList<Line>();
 		for(int i = 0; i < board.getAdjListArr()[y0][x0].size(); i++)
 		{
 			Line line = new Line();
 			
-			line.setStartX(x0*80);
-			line.setStartY(y0*80);
+			line.setStartX((int) Math.rint(x0 * 80));
+			line.setStartY((int) Math.rint(y0 * 80));
 			
-			line.setEndX(board.getAdjListArr()[y0][x0].get(i).getX() / 80);
-			line.setEndY(board.getAdjListArr()[y0][x0].get(i).getY() / 80);
+			line.setEndX(Math.rint(board.getAdjListArr()[y0][x0].get(i).getX() * 80));
+			line.setEndY(Math.rint(board.getAdjListArr()[y0][x0].get(i).getY() * 80));
 			
 			list.addLast(line);
 		}
